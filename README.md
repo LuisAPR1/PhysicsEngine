@@ -2,8 +2,6 @@
 
 A robust, interactive 2D physics engine built from scratch using **p5.js**. This project demonstrates advanced physics simulations in a web environment, featuring custom implementations of rigid body dynamics, collision detection, and numerical integration.
 
-![Physics Engine UI](https://via.placeholder.com/800x400?text=Physics+Engine+Preview)
-
 ## Features
 
 -   **Interactive Simulation**: Real-time control over physical properties like mass, friction, and restitution.
@@ -66,3 +64,4 @@ Friction is implemented as a continuous force application rather than a simple v
 
 **LuisR**
 *Built with p5.js*
+
