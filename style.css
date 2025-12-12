@@ -1,0 +1,382 @@
+/* --------- VARIABLES & RESET --------- */
+:root {
+    --bg-app: #09090b;
+    /* Very Dark Zinc */
+    --bg-panel: #18181b;
+    /* Dark Zinc */
+    --bg-input: #27272a;
+    --border: #3f3f46;
+
+    --primary: #6366f1;
+    /* Indigo */
+    --primary-hover: #4f46e5;
+    --secondary: #27272a;
+    --secondary-hover: #3f3f46;
+
+    --text-main: #f4f4f5;
+    --text-muted: #a1a1aa;
+
+    --font-ui: 'Space Grotesk', sans-serif;
+    --font-num: 'JetBrains Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-app);
+    color: var(--text-main);
+    font-family: var(--font-ui);
+    height: 100vh;
+    overflow: hidden;
+    /* Prevent full page scroll, manage inside areas */
+}
+
+/* --------- LAYOUT --------- */
+.app-layout {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+/* --------- MAIN CANVAS AREA --------- */
+.canvas-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 16px;
+    overflow-y: auto;
+    align-items: center;
+    justify-content: center;
+    background-image: radial-gradient(circle at 50% 50%, #1c1c22 0%, #09090b 100%);
+}
+
+header {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-main);
+}
+
+.logo i {
+    font-size: 1.8rem;
+    color: var(--primary);
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.logo h1 span {
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    background: var(--bg-panel);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    /* Green */
+    border-radius: 50%;
+    box-shadow: 0 0 8px #10b981;
+}
+
+/* Canvas Container styling */
+#canvas-container {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border);
+    /* Make sure canvas fits */
+    display: flex;
+}
+
+/* Add this to ensure p5 canvas doesn't overflow if too huge */
+#canvas-container canvas {
+    display: block;
+    max-width: 100%;
+    height: auto !important;
+}
+
+.instruction-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+/* --------- SIDEBAR CONTROLS --------- */
+aside {
+    width: 340px;
+    background: var(--bg-panel);
+    border-left: 1px solid var(--border);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    overflow-y: auto;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.group-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.group-header h3 {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-main);
+}
+
+/* Grid Logic */
+.inputs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+/* Inputs styling */
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    height: 100%;
+    /* Ensure wrapper fills grid cell */
+    justify-content: flex-end;
+    /* Push content to bottom */
+}
+
+/* Ensure labels stay at top if needed, but the main issue is input alignment */
+.input-wrapper>input {
+    margin-top: auto;
+    /* Push input to bottom if height allows */
+}
+
+/* Override check for custom header */
+.header-with-toggle {
+    margin-bottom: auto;
+    /* Push header to top */
+}
+
+label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+input[type="number"] {
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px;
+    color: var(--text-main);
+    font-family: var(--font-num);
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* Separator line */
+.separator {
+    height: 1px;
+    background: var(--border);
+    width: 100%;
+}
+
+/* Buttons */
+.btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.1s, background-color 0.2s;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+.btn-secondary {
+    background: var(--secondary);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: var(--secondary-hover);
+    border-color: #52525b;
+}
+
+/* Footer Link */
+footer {
+    margin-top: auto;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.github-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+}
+
+.github-link:hover {
+    color: var(--text-main);
+}
+
+/* Scrollbar Customization */
+aside::-webkit-scrollbar {
+    width: 6px;
+}
+
+aside::-webkit-scrollbar-track {
+    background: var(--bg-panel);
+}
+
+aside::-webkit-scrollbar-thumb {
+    background: #3f3f46;
+    border-radius: 3px;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 900px) {
+    .app-layout {
+        flex-direction: column;
+        overflow-y: auto;
+        /* Enable page scroll on mobile */
+    }
+
+    aside {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding-bottom: 40px;
+    }
+
+    .canvas-area {
+        min-height: 60vh;
+    }
+}
+
+/* --------- CUSTOM TOGGLE (Trajectory) --------- */
+.header-with-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.traj-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    transition: color 0.2s;
+    user-select: none;
+}
+
+.traj-toggle:hover {
+    color: var(--primary);
+}
+
+.traj-toggle input {
+    display: none;
+    /* Hide default checkbox */
+}
+
+/* Custom Checkbox visual */
+.toggle-box {
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg-input);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.traj-toggle input:checked+.toggle-box {
+    background: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
+}
+
+/* Using Phosphor icon class for the check, or just simple CSS check */
+.traj-toggle input:checked+.toggle-box::after {
+    content: '✔';
+    font-size: 10px;
+    color: white;
+    display: block;
+}

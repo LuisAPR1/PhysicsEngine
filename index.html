@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Physics Engine</title>
+
+    <!-- Fonts: Space Grotesk (Titles) & JetBrains Mono (Code/Numbers) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons: Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- p5.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <!-- MAIN AREA: Header + Canvas -->
+        <main class="canvas-area">
+            <header>
+                <div class="logo">
+                    <i class="ph-fill ph-atom"></i>
+                    <h1>Physics<span>Engine</span></h1>
+                </div>
+            </header>
+
+            <div id="canvas-container">
+                <!-- p5.js canvas will be injected here -->
+            </div>
+
+            <p class="instruction-text">Click and drag inside the canvas to interact.</p>
+        </main>
+
+        <!-- SIDEBAR: Controls -->
+        <aside id="controls-panel">
+
+            <!-- SECTION 1: OBJECT PROPERTIES -->
+            <div class="control-group">
+                <div class="group-header">
+                    <i class="ph ph-sliders-horizontal"></i>
+                    <h3>Object Properties</h3>
+                </div>
+
+                <div class="inputs-grid">
+                    <div class="input-wrapper">
+                        <label for="input-mass">Mass (kg)</label>
+                        <input type="number" id="input-mass" value="1" step="0.1">
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="input-restitution">Bounce (0-1)</label>
+                        <input type="number" id="input-restitution" value="0.5" step="0.1" max="1">
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="input-friction">Friction (0-1)</label>
+                        <input type="number" id="input-friction" value="0.5" step="0.1" min="0" max="1">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: LAUNCH PARAMETERS -->
+            <div class="control-group">
+                <div class="group-header">
+                    <i class="ph ph-rocket-launch"></i>
+                    <h3>Launch Config</h3>
+                </div>
+
+                <div class="inputs-grid">
+                    <div class="input-wrapper">
+                        <div class="header-with-toggle">
+                            <label for="input-angle">Angle (deg)</label>
+
+                            <!-- Custom Trajectory Toggle -->
+                            <label class="traj-toggle" title="Toggle Trajectory Line">
+                                <span>Show Path</span>
+                                <input type="checkbox" id="input-show-trajectory" checked>
+                                <span class="toggle-box"></span>
+                            </label>
+                        </div>
+                        <input type="number" id="input-angle" value="320">
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="input-force">Speed (px/s)</label>
+                        <input type="number" id="input-force" value="500">
+                    </div>
+
+                    <div class="input-wrapper full-width">
+                        <label for="input-gravity">Gravity (Y-Axis)</label>
+                        <input type="number" id="input-gravity" value="980" step="10">
+                    </div>
+                </div>
+
+                <button id="btn-launch" class="btn btn-primary">
+                    <i class="ph-bold ph-play"></i> Start Simulation
+                </button>
+            </div>
+
+            <div class="separator"></div>
+
+            <!-- SECTION 3: WORLD BUILDER -->
+            <div class="control-group">
+                <div class="group-header">
+                    <i class="ph ph-wall"></i>
+                    <h3>Environment</h3>
+                </div>
+
+                <div class="inputs-grid">
+                    <div class="input-wrapper">
+                        <label for="input-block-width">Width</label>
+                        <input type="number" id="input-block-width" value="100">
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="input-block-height">Height</label>
+                        <input type="number" id="input-block-height" value="20">
+                    </div>
+
+                    <div class="input-wrapper full-width">
+                        <label for="input-block-friction">Wall Friction</label>
+                        <input type="number" id="input-block-friction" value="0.5" step="0.1">
+                    </div>
+                </div>
+
+                <button id="btn-build" class="btn btn-secondary">
+                    <i class="ph-bold ph-cube"></i> Toggle Build Mode
+                </button>
+            </div>
+
+            <!-- Footer Signature -->
+            <footer>
+                <a href="https://github.com/SEU_USER" target="_blank" class="github-link">
+                    <i class="ph-bold ph-github-logo"></i> View on GitHub
+                </a>
+                <div style="margin-top: 12px; font-size: 0.75rem; color: var(--text-muted); opacity: 0.8;">
+                    Made by <span style="color: var(--text-main); font-weight: 500;">LuisR</span> using <span
+                        style="color: #ed225d; font-weight: 500;">p5.js</span>
+                </div>
+            </footer>
+
+        </aside>
+    </div>
+
+    <!-- Scripts -->
+    <script src="StaticBody.js"></script>
+    <script src="PhysicsEntity.js"></script>
+    <script src="sketch.js"></script>
+
+</body>
+
+</html>

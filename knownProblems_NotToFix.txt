@@ -1,0 +1,5 @@
+1. Collision Tunneling Risk at Extreme Speeds (Potential Issue)
+While you've mitigated this with thick walls (20px), at very high velocities (e.g., Speed = 10000 px/s), the object could still tunnel through if it moves more than 20px per frame. The dt clamp at 0.05s helps, but at Speed=10000, that's still 500px per frame.
+
+2.Collision Resolution Order May Cause Jitter (Minor Issue)
+When the player collides with multiple platforms in the same frame, the resolveCollision() is called in sequence. Each resolution could push the player into another collision, causing slight instability or jitter in corner cases.
