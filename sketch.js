@@ -27,7 +27,7 @@ function setup() {
     platforms.push(new StaticBody(width - wallThickness, 0, wallThickness, height));
 
 
-    
+
     // Connect Launch Button
     launchBtn = select('#btn-launch');
     if (launchBtn) {
