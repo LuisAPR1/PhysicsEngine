@@ -1,50 +1,41 @@
 # 2D Physics Engine
 
-> ** Live Demo:** [https://luisapr1.github.io/PhysicsEngine/](https://luisapr1.github.io/PhysicsEngine/)
+**Live Demo:** [https://luisapr1.github.io/PhysicsEngine/](https://luisapr1.github.io/PhysicsEngine/)
 
-A robust, interactive 2D physics engine built from scratch using **p5.js**. This project demonstrates advanced physics simulations in a web environment, featuring custom implementations of rigid body dynamics, collision detection, and numerical integration.
+An interactive 2D physics engine built from scratch using p5.js. This project implements rigid body dynamics, AABB collision detection, and Verlet integration for stable simulations.
 
 ## Features
 
--   **Interactive Simulation**: Real-time control over physical properties like mass, friction, and restitution.
--   **Trajectory Visualization**: Predictive path visualization for projectile motion.
--   **World Builder**: Custom environment creation with adjustable block dimensions and friction.
--   **Stable Physics Core**: Built on Verlet Integration for superior stability and accuracy.
--   **Collision System**: AABB (Axis-Aligned Bounding Box) collision detection with continuous friction application.
--   **Responsive UI**: Modern, dark-themed control panel for tuning simulation parameters.
+- Real-time control over mass, friction, and restitution
+- Predictive trajectory visualization for projectile motion
+- Custom environment builder with adjustable block properties
+- Modern, dark-themed control panel
 
----
+## Technical Decisions
 
-## Physics Implementation
+### Verlet Integration
 
-The core of this engine deviates from standard Euler integration often found in simple tutorials. Instead, it adopts **Verlet Integration**, a choice driven by the need for numerical stability and physical accuracy.
+The simulation uses Verlet integration instead of the simpler Euler method. While Euler integration (`position += velocity * dt`) is straightforward, it suffers from energy drift and instability in constrained systems.
 
-### 1. Verlet Integration vs. Euler
-Traditional Euler integration (`position += velocity * dt`) is simple but prone to energy drift (objects gaining or losing energy over time) and instability, especially in orbital or constrained systems.
+Verlet integration offers:
+- **Energy conservation**: Better preservation of total system energy over long simulations
+- **Numerical stability**: More robust handling of collision constraints through implicit velocity correction
 
-[Usefull Article](http://kahrstrom.com/gamephysics/2011/08/03/euler-vs-verlet/)
+For a detailed comparison, see: [Euler vs Verlet](http://kahrstrom.com/gamephysics/2011/08/03/euler-vs-verlet/)
 
-**Why Verlet?**
--   **Symplectic Nature**: It preserves energy better over long simulations.
--   **Stability**: Handling constraints (like collisions) is much more stable by implicitly correcting velocity via position adjustments.
+### Collision System
 
-### 2. Collision & Friction
--   **Detection**: **AABB** for efficient broad and narrow phase detection.
--   **Resolution**: STRICT Position Projection to resolve overlaps.
--   **Bounce**: Implemented by reflecting the `prevPosition` across the collision normal.
--   **Friction**: Continuous force application based on normal force and combined friction coefficients, allowing realistic sliding and resting behavior.
-
----
+- **Detection**: AABB (Axis-Aligned Bounding Box) for efficient overlap testing
+- **Resolution**: Position projection to resolve penetration
+- **Bounce**: Reflection of previous position across the collision normal
+- **Friction**: Continuous force application based on normal force and combined friction coefficients
 
 ## Tech Stack
 
--   **Language**: JavaScript (ES6+)
--   **Rendering**: [p5.js](https://p5js.org/) (Canvas API)
--   **Styling**: CSS3 (Variables, Flexbox, Grid)
--   **Icons**: Phosphor Icons
+- **Language**: JavaScript (ES6+)
+- **Rendering**: p5.js
+- **Styling**: CSS3
 
-##  Author
+## Author
 
-**LuisR**
-*Built with p5.js*
-
+LuisR
