@@ -1,10 +1,8 @@
 # 2D Physics Engine
 
-> **🔴 Live Demo:** [https://luisapr1.github.io/PhysicsEngine/](https://luisapr1.github.io/PhysicsEngine/)
+> ** Live Demo:** [https://luisapr1.github.io/PhysicsEngine/](https://luisapr1.github.io/PhysicsEngine/)
 
 A robust, interactive 2D physics engine built from scratch using **p5.js**. This project demonstrates advanced physics simulations in a web environment, featuring custom implementations of rigid body dynamics, collision detection, and numerical integration.
-
-![Physics Engine UI](https://via.placeholder.com/800x400?text=Physics+Engine+Preview)
 
 ## Features
 
@@ -49,3 +47,4 @@ Traditional Euler integration (`position += velocity * dt`) is simple but prone 
 
 **LuisR**
 *Built with p5.js*
+
